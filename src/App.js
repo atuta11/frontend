@@ -1,57 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import NewTicket from './pages/NewTicket';
+import PrivateRoute from './components/PrivateRoute'
+import Tickets from './pages/Tickets';
+import AdminLogin from './pages/AdminLogin';
+import AdminRegister from './pages/AdminRegister';
+import AdminResolve from './pages/AdminResolve';
+import Ticket from './pages/Ticket';
+import EditTicket from './components/EditTicket';
+import AdminAction from './pages/AdminAction';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+       <Router>
+        <div className='container'>
+          <Routes>
+            <Route path='/' element={<Home />}/>
+            <Route path='/login' element={<Login />}/>
+            <Route path='/register' element={<Register />}/>
+            <Route path='/new-ticket' element={<PrivateRoute />}>
+               <Route path='/new-ticket' element = {<NewTicket/>} /> 
+            </Route>
+            <Route path='/tickets' element={<PrivateRoute />}>
+               <Route path='/tickets' element = {<Tickets/>} /> 
+            </Route>
+            <Route path='/admin-login' element={<AdminLogin />}/>
+            <Route path='/admin-register' element={<AdminRegister />}/>
+            <Route path='/admin-resolve' element={<AdminResolve />}/>
+            <Route path='/ticket/:ticketId' element={<PrivateRoute />}>
+               <Route path='/ticket/:ticketId' element = {<Ticket/>} /> 
+            </Route>
+            <Route path='/update-ticket/:ticketId' element={<PrivateRoute />}>
+               <Route path='/update-ticket/:ticketId' element = {<EditTicket/>} /> 
+            </Route>
+            <Route path='/admin-resolve/:ticketId/notes' element={<AdminAction />}/>
+          </Routes>
+        </div>
+       </Router>
+       <ToastContainer/>
+    </>
   );
 }
 
